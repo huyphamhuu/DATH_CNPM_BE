@@ -75,7 +75,6 @@ public class DataLoader implements CommandLineRunner {
         user1.setUsername("user1");
         user1.setPassword("password1");
         user1.setEmail("user1@example.com");
-        user1.setRole("USER");
         userRepo.save(user1);
 
         // Create Carts

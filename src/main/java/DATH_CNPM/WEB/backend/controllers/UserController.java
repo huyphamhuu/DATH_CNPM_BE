@@ -2,47 +2,34 @@ package DATH_CNPM.WEB.backend.controllers;
 
 import DATH_CNPM.WEB.backend.models.User;
 import DATH_CNPM.WEB.backend.services.UserService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import DATH_CNPM.WEB.backend.services.AuthenticationRequest;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/user")
 public class UserController {
-
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    @PostMapping("/register")
+    public String register(@RequestBody User user) {
+        return userService.register(user);
     }
 
-    @GetMapping("/{id}")
-    public Optional<User> getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+    @GetMapping("/login")
+    public String login(@RequestBody @Valid AuthenticationRequest request) {
+        return userService.authenticate(request.getEmail(), request.getPassword());
     }
 
-    @GetMapping("/username/{username}")
-    public Optional<User> getUserByUsername(@PathVariable String username) {
-        return userService.getUserByUsername(username);
-    }
-
-    @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.saveUser(user);
-    }
-
-    @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
-        user.setId(id);
-        return userService.saveUser(user);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+    @GetMapping("/validate")
+    public boolean validateToken(@RequestParam String token) {
+        return userService.validateToken(token);
     }
 }
