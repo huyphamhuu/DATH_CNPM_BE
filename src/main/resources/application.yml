@@ -1,0 +1,33 @@
+server:
+  port: 8083
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shop1
+    username: postgres
+    password: huuhuy1607
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+#application:
+#  service:
+#    employee:
+#      url: http://localhost:8082/api  # Cấu hình URL cho employeeService
+#    user:
+#      url: http://localhost:8081/api/user  # Cấu hình URL cho orderService
+# # Thêm biến cấu hình này
+#  security:
+#    jwt:
+#      secret-key: "VGhpcyBpcyBhIHNlY3gg5gdcdfwcccudugf4JldCBrZXk="
+#      expiration: 86400000
+#  mailing:
+#    frontend:
+#      activation-url: http://localhost:4200/activate-account
+#      resetPassword-url: http://localhost:4200/reset-password
